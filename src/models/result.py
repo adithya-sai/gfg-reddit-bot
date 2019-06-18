@@ -1,8 +1,7 @@
-class Result():
-    def __init__(self, score, scorers, goal_times):
-        self.score = score
-        self.scorers = scorers
-        self.goal_times = goal_times
+from pymodm import EmbeddedMongoModel, fields
 
-    def __repr__(self):
-        return str(self.__dict__)
+class Result(EmbeddedMongoModel):
+
+    score = fields.CharField(blank=True)
+    scorers = fields.ListField(fields.CharField(), blank=True)
+    first_goal = fields.CharField(blank=True)

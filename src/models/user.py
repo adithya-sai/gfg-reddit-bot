@@ -1,13 +1,25 @@
-class User():
+from pymodm import MongoModel, EmbeddedMongoModel, fields
+from models.league import League
+from models.result import Result
+from models.fixture import Fixture
 
-    def __init__(self, username, points, curr_prediction, prev_prediction, prediction_history):
-        self.name = username
-        self.points = points
-        self.curr_prediction = curr_prediction
-        self.prev_prediction = prev_prediction
-        self.prediction_history = prediction_history
+class PointPerLeague(EmbeddedMongoModel):
+    league_id = fields.ReferenceField(League)
+    points = fields.IntegerField()
 
-    def __repr__(self):
-        return str(self.__dict__)
+class Points(EmbeddedMongoModel):
+        total = fields.IntegerField()
+        points_per = fields.EmbeddedDocumentField(PointPerLeague) 
 
-    
+class Prediction(EmbeddedMongoModel):
+
+    fixture = fields.ReferenceField(Fixture)
+    result = fields.EmbeddedDocumentField(Result)
+
+class User(MongoModel):
+
+    username = fields.CharField(primary_key=True)
+    points = fields.EmbeddedDocumentField(Points, blank=True)
+    curr_prediction = fields.EmbeddedDocumentField(Prediction, blank=True)
+    prediction_history = fields.EmbeddedDocumentListField(Prediction, blank=True)
+
