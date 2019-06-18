@@ -1,8 +1,4 @@
 from pymongo import MongoClient
+from pymodm.connection import connect
 
-client = MongoClient()
-
-db = client.gfg_db
-
-fixtures_col = db.fixtures_collection
-users_col = db.users_collection
+connect("mongodb://localhost:27017/gfg_db")
