@@ -29,7 +29,7 @@ def make_reddit_post(f):
 
 def post_thread():
 
-    fixtures_list = db.get_new_fixtures()
+    fixtures_list = db.get_fixtures_by_status("NS")
     if len(fixtures_list) > 0:
         fixture_dict = fixtures_list[0]
         if fixture_dict['start_time'] - int(time.time()) < 86400:

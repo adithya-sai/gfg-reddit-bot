@@ -10,7 +10,6 @@ def crawl_predictions(submission_id):
     user_predictions = []
     user_set = set()
     for top_level_comment in submission.comments:
-        print("test")
         if isinstance(top_level_comment, MoreComments):
             continue
         redditor = top_level_comment.author
