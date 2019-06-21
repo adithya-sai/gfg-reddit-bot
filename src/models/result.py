@@ -1,7 +1,7 @@
 from pymodm import EmbeddedMongoModel, fields
 
 class Result(EmbeddedMongoModel):
-
-    score = fields.CharField(blank=True)
+    home_goals = fields.IntegerField()
+    away_goals = fields.IntegerField()
     scorers = fields.ListField(fields.CharField(), blank=True)
-    first_goal = fields.CharField(blank=True)
+    first_event = fields.CharField(blank=True)

@@ -1,0 +1,10 @@
+Hello reddevils, time for your predictions.  
+# **{home}** vs **{away}**  
+##**Format for prediction:**  
+HOME TEAM x - y AWAY TEAM  
+Scorer1, Scorer2  
+Time of first goal/Time of first booking if 0-0   
+### Example prediction:  
+Manchester United 2 - 1 Tottenham Hotspur  
+Lukaku, Rashford, Kane  
+24
