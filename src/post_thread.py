@@ -8,7 +8,7 @@ from models.league import League
 from models.user import User
 from models.submission import Submission
 
-# Get upcoming fixture
+# Get upcoming fixture.
 # check if current time is less than 24 hours away
 # make post
 # change status to "posted_thread"
