@@ -1,8 +1,6 @@
-from bot.crawl_comments import crawl_predictions
 import api
 from models.fixture import Fixture
 from models.result import Result
-from models.prediction import Prediction
 from models.league import League
 from models.user import User
 
