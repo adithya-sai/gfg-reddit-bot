@@ -3,15 +3,21 @@
 # if yes, collect predictions
 # change status to "collected_predictions"
 
-from models.fixture import Fixture
-from models.submission import Submission
-from models.result import Result
-from models.user import User, Prediction, Points
-import db
+from common.models.fixture import Fixture
+from common.models.submission import Submission
+from common.models.result import Result
+from common.models.user import User, Prediction
+import common.bot as bot
 import time
 import re
-import bot
 import math
+import logging
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+consoleHandler = logging.StreamHandler()
+logger.addHandler(consoleHandler)
 
 def extract_result(lines):
     scorers = None
@@ -36,49 +42,61 @@ def extract_result(lines):
                     else:
                         first_event = 10000         # assigning an insane number if first event is not an integer
                     break
-            return Result(home_goals, away_goals, scorers, first_event)
+            return Result(home_goals = home_goals, away_goals = away_goals, scorers = scorers, first_event = first_event)
     else:
         return None
 
 
 def collect_predictions():
+    logger.info("Getting fixture with status `posted_thread`")
+    fixture_list = list(Fixture.status_index.query("posted_thread", limit = 1))
 
-    fixture_list = db.get_fixtures_by_status("posted_thread")
     if(len(fixture_list)) > 0:
-
         f = fixture_list[0]
-        if time.time() > f['start_time']:
-            sub = db.get_submission_by_fixture(f['_id'])
-            if sub:
+        logger.info("Fixture: {} found. Checking if it started...".format(f.fixture_id))
+        if time.time() > f.start_time:
+            try:
+                logger.info("Fixture {} started. Getting submission for the fixture".format(f.fixture_id))
+                sub = list(Submission.fixture_index.query(f.fixture_id))[0]
+                logger.info("Type of sub : {}".format(type(sub)))
+                logger.info("Submission `{}` found".format(sub.submission_id))
                 user_predictions = bot.crawl_predictions(sub.submission_id)
+                logger.info("Gathered `{}` user predictions for fixture: {}".format(len(user_predictions), f.fixture_id))
                 new_user_list = list()
                 for up in user_predictions:
                     
                     lines = up['body'].split('\n')
                     result = extract_result(lines)
                     if result:
-                        prediction = Prediction(f['_id'], result, up['posted_at'], 0)
-
-                        existing_user = db.get_user_by_id(up['name'])
-                        if not existing_user:
-                            # new user
-                            new_user = User(up['name'], Points(0, dict()), prediction, list())
-                            new_user_list.append(new_user)
-                        else:
+                        prediction = Prediction(fixture=f.fixture_id, result = result, posted_at= up['posted_at'], points = 0)
+                        existing_user_result = list(User.query(up['name']))
+                        if len(existing_user_result) > 0:
+                            existing_user = existing_user_result[0]
                             existing_user.prediction_history.append(existing_user.curr_prediction)
                             existing_user.curr_prediction = prediction
                             existing_user.save()
-
+                        else:
+                            new_user = User(user_id=up['name'], total_points=0, points_per_league = dict(), curr_prediction=prediction, prediction_history=list())
+                            new_user_list.append(new_user)
+                        
                 if len(new_user_list) > 0:
-                    db.insert_users_in_bulk(new_user_list)
+                    logger.info("Inserting new user predictions of size: {}".format(len(new_user_list)))
+                    with User.batch_write() as batch:
+                        for u in new_user_list:
+                            batch.save(u)
 
-                fixture = db.get_fixture_by_id(f['_id'])
-                if fixture:
-                    db.change_fixture_status(fixture, "collected_predictions")
-                else:
-                    print("fixture not found")
-            else:
-                print("submission not found")
+                logger.info("Changing status of fixture from `posted_thread` to `collected_predictions`")
+                f.status = "collected_predictions"
+                f.save()
+            except Exception:
+                logging.exception("Error while collecting predictions for fixture:{}".format(f.fixture_id))
+
+    else:
+        logger.info("No fixture found with the status `posted_thread`")
+
+
+def lambda_handler(event, context):
+    collect_predictions()
 
 if __name__ == "__main__":
     collect_predictions()

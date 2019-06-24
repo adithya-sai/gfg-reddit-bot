@@ -1,16 +1,24 @@
-from models.result import Result
-from models.user import User, Prediction
-from models.submission import Submission
-from reddit import reddit, MoreComments
+from common.models.result import Result
+from common.models.user import User, Prediction
+from common.models.submission import Submission
+from common.reddit import reddit, MoreComments
+
 import re
+import logging
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 
 def crawl_predictions(submission_id):
+    logger.info("Calling reddit API to get submission: {}".format(submission_id))
     submission = reddit.submission(id=submission_id)
     user_predictions = []
     user_set = set()
+    submission.comments.replace_more(limit=None)
     for top_level_comment in submission.comments:
         if isinstance(top_level_comment, MoreComments):
+            logger.info("more comments found")
             continue
         redditor = top_level_comment.author
         if redditor:
@@ -21,6 +29,6 @@ def crawl_predictions(submission_id):
 
 
 def submit_post(title, body):
-    subreddit = reddit.subreddit('testingground4bots')
+    subreddit = reddit.subreddit('testabot')
     submission = subreddit.submit(title, body)
     return submission

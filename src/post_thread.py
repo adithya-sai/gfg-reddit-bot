@@ -1,12 +1,16 @@
 import time
 import datetime
-import db
-import bot
-from models.fixture import Fixture
-from models.result import Result
-from models.league import League
-from models.user import User
-from models.submission import Submission
+import common.bot as bot
+from common.models.fixture import Fixture
+from common.models.result import Result
+from common.models.league import League
+from common.models.user import User
+from common.models.submission import Submission
+import json
+import logging
+
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 
 # Get upcoming fixture.
 # check if current time is less than 24 hours away
@@ -14,7 +18,9 @@ from models.submission import Submission
 # change status to "posted_thread"
 
 def make_reddit_post(f):
-    title = "Going for Gold : {} vs {} [{}]".format(f.home, f.away, f.league.league_name)
+    league = League.get(f.league)
+    logger.info("Making reddit post for fixture ID: {}, League Name: {}".format(f.fixture_id, league.league_name))
+    title = "Going for Gold : {} vs {} [{}]".format(f.home, f.away, league.league_name)
     data = {
         "home": f.home,
         "away": f.away,
@@ -28,16 +34,33 @@ def make_reddit_post(f):
 
 
 def post_thread():
+    try:
+        logger.info("Getting the latest fixture")
+        fixtures_list = list(Fixture.status_index.query("NS", limit = 1))
+        if len(fixtures_list) > 0:
+            f = fixtures_list[0]
+            if f.start_time - int(time.time()) < 86400:
+                logger.info("Upcoming fixture : {}".format(f.fixture_id))
+                submission = make_reddit_post(f)
+                logger.info("Inserting submission - {}, {}".format(submission.id, submission.created_utc))
+                Submission(submission_id=submission.id, fixture_id=f.fixture_id, created_at=submission.created_utc).save()
+                f.status = "posted_thread"
+                logger.info("Changing status of fixture to posted_thread")
+                f.save()
+            else:
+                logger.info("No fixture in the next 24 hours")
+        else:
+            logger.info("No fixture with status `NS`")
 
-    fixtures_list = db.get_fixtures_by_status("NS")
-    if len(fixtures_list) > 0:
-        fixture_dict = fixtures_list[0]
-        if fixture_dict['start_time'] - int(time.time()) < 86400:
-            
-            f = db.get_fixture_by_id(fixture_dict['_id'])
-            submission = make_reddit_post(f)
-            db.save_submission(submission.id, f.fixture_id, submission.created_utc)
-            db.change_fixture_status(f, "posted_thread")
+    except Exception:
+        logging.exception("Exception occured")
+
+
+def lambda_handler(event, context):
+    post_thread()
+    return
 
 if __name__ == "__main__":
     post_thread()
+
+
