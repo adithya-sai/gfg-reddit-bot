@@ -1,10 +1,6 @@
-from pymongo import MongoClient
-from pymodm.connection import connect
-from models.fixture import Fixture
-from models.submission import Submission
-from models.user import User
-
-connect("mongodb://localhost:27017/gfg_db")
+from common.models.fixture import Fixture
+from common.models.submission import Submission
+from common.models.user import User
 
 
 def get_fixtures_by_status(status):
