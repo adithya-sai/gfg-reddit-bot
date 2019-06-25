@@ -1,14 +1,17 @@
 import requests
 import json
+from common.config import config
 
 def get_new_fixtures(team_id):
-    url = "https://www.api-football.com/demo/api/v2/fixtures/team/" + team_id
+    url = config["FootballApiBaseUrl"] + "/fixtures/team/" + team_id
     r = requests.get(url)
     rdict = json.loads(r.text)
     return rdict["api"]["fixtures"]
 
 def get_result(fixture_id):
-    url = "https://www.api-football.com/demo/api/v2/fixtures/id/" + str(fixture_id)
+    print(config.get("FootballApiBaseUrl"))
+
+    url = config["FootballApiBaseUrl"]+ "/fixtures/id/" + str(fixture_id)
     r = requests.get(url)
     rdict = json.loads(r.text)
     fixture_info = rdict["api"]["fixtures"][0]

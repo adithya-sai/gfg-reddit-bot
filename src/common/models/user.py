@@ -5,7 +5,6 @@ from botocore.session import Session
 from .league import League
 from .result import Result
 from .fixture import Fixture
-from .user_points_index import UserPointsIndex
 
 class Prediction(MapAttribute):
 
