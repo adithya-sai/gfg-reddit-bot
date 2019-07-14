@@ -9,6 +9,9 @@ import configparser
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
+consoleHandler = logging.StreamHandler()
+logger.addHandler(consoleHandler)
+
 
 def check_for_fixture_result():
     
@@ -47,7 +50,7 @@ def check_for_fixture_result():
             else:
                 result = Result(home_goals=home_goals, away_goals=away_goals, scorers=None, first_event=first_card)
             
-            logger.info("Updating result for fixture `{}` and changing status to `FT`".format(f.fixture_id))
+            logger.info("Updating result for fixture `{}` and changing status to `updated_result`".format(f.fixture_id))
             f.result = result
             f.status = "updated_result"
             f.save()
