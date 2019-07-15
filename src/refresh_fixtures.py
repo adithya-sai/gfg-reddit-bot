@@ -10,10 +10,6 @@ import logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-consoleHandler = logging.StreamHandler()
-logger.addHandler(consoleHandler)
-
-
 def refresh_fixtures():
 	# Get fixtures and update in DB
 	logger.info("Refreshing fixtures...")

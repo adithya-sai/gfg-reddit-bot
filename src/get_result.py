@@ -10,10 +10,6 @@ import configparser
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-consoleHandler = logging.StreamHandler()
-logger.addHandler(consoleHandler)
-
-
 def check_api_limit():
     api_call_stat = list(Stat.query("api-call"))[0]
     api_stat_dict = api_call_stat.stat_value.as_dict()

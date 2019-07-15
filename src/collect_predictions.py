@@ -16,9 +16,6 @@ import logging
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-consoleHandler = logging.StreamHandler()
-logger.addHandler(consoleHandler)
-
 def extract_result(lines):
     scorers = None
     first_event = None
