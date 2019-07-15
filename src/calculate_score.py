@@ -18,9 +18,6 @@ import configparser
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-consoleHandler = logging.StreamHandler()
-logger.addHandler(consoleHandler)
-
 
 def score_users():
     logger.info("Getting fixture with status `updated_result`")
