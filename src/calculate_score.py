@@ -15,6 +15,7 @@ from common.models.user import User, MapAttribute
 import common.api as api
 import logging
 import configparser
+import google_sheets
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
@@ -162,3 +163,4 @@ if __name__ == "__main__":
         logger.info("Changing status to `FT` for fixture {}".format(f.fixture_id))
         f.status = "FT"
         f.save()
+        google_sheets.update_sheets(f)
