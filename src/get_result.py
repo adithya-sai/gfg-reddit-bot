@@ -28,9 +28,11 @@ def check_for_fixture_result():
     fixture_list = list(Fixture.status_index.query("collected_predictions", int(time.time()) - 10800 > Fixture.start_time))
 
     if(len(fixture_list)) > 0:
+        print(fixture_list)
         result_dict = None
         f = fixture_list[0]
         if check_api_limit():
+            logger.info("Getting result for fixture {}".format(f.fixture_id))
             result_dict = api.get_result(f.fixture_id)  # get result
         if result_dict: # if result is found/ game is over
             logger.info("Result for fixture: `{}` found.".format(f.fixture_id))
@@ -61,6 +63,9 @@ def check_for_fixture_result():
             f.result = result
             f.status = "updated_result"
             f.save()
+        else:
+            logger.info("Result for fixture {} not found".format(f.fixture_id))
+
 
 def lambda_handler(event, context):
     check_for_fixture_result()
