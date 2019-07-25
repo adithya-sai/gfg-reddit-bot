@@ -8,3 +8,6 @@
 * Calculates score based on a few rules and conditions
 * Updates Google Sheets with the latest points
 
+
+
+For anyone looking to contribute to this project, look at CONTRIBUTING.md
