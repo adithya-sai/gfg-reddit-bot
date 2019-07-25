@@ -156,7 +156,7 @@ def lambda_handler(event, context):
         logger.info("Changing status to `FT` for fixture {}".format(f.fixture_id))
         f.status = "FT"
         f.save()
-
+        google_sheets.update_sheets(f)
 if __name__ == "__main__":
     f = score_users()
     if f:

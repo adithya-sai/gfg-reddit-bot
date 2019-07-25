@@ -1,10 +1,46 @@
+# Welcome to Season 5 of the Golden League
+
 Hello reddevils, time for your predictions.  
 # **{home}** vs **{away}**  
+
 ##**Format for prediction:**  
-HOME TEAM x - y AWAY TEAM  
-Scorer1, Scorer2  
-Time of first goal/Time of first booking if 0-0   
+
+> HOME TEAM **?** - **?** AWAY TEAM  
+> ***blank line***  
+>  United scorers separated by commas  
+> ***blank line***    
+> Time of first goal
+  
+  
 ### Example prediction:  
-Manchester United 2 - 1 Tottenham Hotspur  
-Lukaku, Rashford, Kane  
-24
+    Manchester United 2 - 1 Tottenham Hotspur  
+    Lukaku, Rashford
+    24
+
+
+##Scoring system
+
+Correct Result (Win, Draw, Loss): +2 points
+
+Correct Scoreline: +3 points
+
+Each correct goal+scorer: +1 point
+
+Best prediction of game (winner of gold): +5 points
+
+If you lost out on gold due to tiebreaker, you get +3 points
+
+
+##Some rules and information
+
+* Make a comment on this thread.
+* If predicting a 0-0 draw, enter the minute of the first booking as a tiebreaker  
+* If there are two identical predictions, the advantage goes to the earliest prediction.
+* Winner decided as follows: Correct scoreline -> Number of correct scorers -> minute of first goal of the game by either side (tiebreaker)
+
+* One prediction each
+
+* Comments entered in the wrong format cannot be read by the bot and thus cannot be accepted
+
+* Comments must be made before kickoff. You can edit them before this time. Comments entered or edited after k.o will not be accepted.
+* Use only the last name for scorers

@@ -2,6 +2,7 @@ from common.models.result import Result
 from common.models.user import User, Prediction
 from common.models.submission import Submission
 from common.reddit import reddit, MoreComments
+from common.config import config
 
 import re
 import logging
@@ -29,6 +30,6 @@ def crawl_predictions(submission_id):
 
 
 def submit_post(title, body):
-    subreddit = reddit.subreddit('testabot')
+    subreddit = reddit.subreddit(config.get('Subreddit'))
     submission = subreddit.submit(title, body)
     return submission
