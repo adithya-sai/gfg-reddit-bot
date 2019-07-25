@@ -15,6 +15,9 @@ def check_api_limit():
     api_stat_dict = api_call_stat.stat_value.as_dict()
     logger.info(api_stat_dict)
     logger.info("Current API call count : {}".format(api_stat_dict["count"]))
+    api_stat_dict["count"] += 1
+    api_call_stat.stat_value = api_stat_dict
+    api_call_stat.save()
     return api_stat_dict["count"] < int(config.get("MaxApiCall"))
 
 
