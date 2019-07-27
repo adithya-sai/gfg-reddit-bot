@@ -1,10 +1,3 @@
-# get fixture with status "collected_predictions"
-# check if current time is at least 3 hours ahead of start_time
-# if yes, call football api to get the result
-# get user records where current prediction fixture id is the same as the fixture that ended
-# calculate scores for those users and update them on db
-# change status to FT
-
 import time
 import re
 import heapq
@@ -21,13 +14,15 @@ logger.setLevel(logging.INFO)
 
 
 def score_users():
+    # get fixture with status "updated_result"
     logger.info("Getting fixture with status `updated_result`")
     fixture_list = list(Fixture.status_index.query("updated_result", limit = 1))
     if len(fixture_list) > 0:
         f = fixture_list[0]
         logger.info("Calculating users score for the fixture result `{}`".format(f.fixture_id))
         logger.info("Getting predictions for users with fixture_id `{}` in curr_prediction".format(f.fixture_id))
-
+        
+        # get user records where current prediction fixture id is the same as the fixture that ended
         users_list = list(User.scan(User.curr_prediction.fixture == f.fixture_id))
         if len(users_list) > 0:
 
@@ -36,7 +31,7 @@ def score_users():
             scorerpoints_dict = {}
             highest_user = None
             for u in users_list:
-                u.curr_prediction.points = 0 # just making sure
+                u.curr_prediction.points = 0 # just to be sure
                 logger.info("Calculating score for user : `{}`".format(u.user_id))
                 points = 0
                 ur = u.curr_prediction.result
@@ -155,6 +150,7 @@ def lambda_handler(event, context):
     if f:
         logger.info("Changing status to `FT` for fixture {}".format(f.fixture_id))
         f.status = "FT"
+        # change status to FT
         f.save()
         google_sheets.update_sheets(f)
 if __name__ == "__main__":

@@ -61,7 +61,7 @@ def check_for_fixture_result():
                 result = Result(home_goals=home_goals, away_goals=away_goals, scorers=scorers, first_event=first_goal)
             else:
                 result = Result(home_goals=home_goals, away_goals=away_goals, scorers=None, first_event=first_card)
-            
+            # Change status from `collected_predictions` to `updated_result`
             logger.info("Updating result for fixture `{}` and changing status to `updated_result`".format(f.fixture_id))
             f.result = result
             f.status = "updated_result"
