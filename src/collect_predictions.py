@@ -78,10 +78,9 @@ def collect_predictions():
                         
                 if len(new_user_list) > 0:
                     logger.info("Inserting new user predictions of size: {}".format(len(new_user_list)))
-                    with User.batch_write() as batch:
-                        for u in new_user_list:
-                            batch.save(u)
-
+                    for u in new_user_list:
+                        u.save()
+                        
                 logger.info("Changing status of fixture from `posted_thread` to `collected_predictions`")
                 f.status = "collected_predictions"
                 f.save()
