@@ -6,6 +6,7 @@ __pycache__/
 virtualenv/
 *.zip
 *.sh
+*.json
 
 .vscode
 .idea
