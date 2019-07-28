@@ -10,6 +10,7 @@ class Fixture(Model):
     class Meta:
         table_name = 'gfg-fixtures'
         region = Session().get_config_variable('region')
+        host = "http://localhost:8000"
 
     fixture_id = NumberAttribute(hash_key=True)
     home = UnicodeAttribute()

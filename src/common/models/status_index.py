@@ -16,7 +16,7 @@ class StatusIndex(GlobalSecondaryIndex):
         # All attributes are projected
         projection = AllProjection()
         region = Session().get_config_variable('region')
-
+        host = "http://localhost:8000"
 
     # This attribute is the hash key for the index
     # Note that this attribute must also exist

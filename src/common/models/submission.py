@@ -9,6 +9,8 @@ class Submission(Model):
     class Meta:
         table_name = 'gfg-submissions'
         region = Session().get_config_variable('region')
+        host = "http://localhost:8000"
+
     submission_id = UnicodeAttribute(hash_key=True)
     fixture_id = NumberAttribute()
     fixture_index = FixtureIndex()
