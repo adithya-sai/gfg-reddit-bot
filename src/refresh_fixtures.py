@@ -22,6 +22,7 @@ def refresh_fixtures():
         for f in fixtures_list:
             if f["statusShort"] == "NS" or f["statusShort"] == "TBD":
                 Fixture(fixture_id=f["fixture_id"], home=f["homeTeam"]["team_name"], away=f["awayTeam"]["team_name"],
+                        home_team_id=f['homeTeam']['team_id'], away_team_id=f['awayTeam']['team_id'],
                         start_time=int(f["event_timestamp"]), status=f["statusShort"], result=None,
                         league=f["league_id"]).save()
 

@@ -44,6 +44,8 @@ def check_for_fixture_result():
             score = result_dict['score']['fulltime'].strip().replace(" ", "").split("-")
             home_goals = int(score[0])
             away_goals = int(score[1])
+            home_team = result_dict['home']
+            away_team = result_dict['away']
             scorers = []
             first_goal = 0
             first_card = 0
@@ -59,9 +61,9 @@ def check_for_fixture_result():
                         first_card = e['elapsed']
 
             if home_goals + away_goals != 0:
-                result = Result(home_goals=home_goals, away_goals=away_goals, scorers=scorers, first_event=first_goal)
+                result = Result(home_goals=home_goals, away_goals=away_goals, home_team_id=home_team, away_team_id=away_team, scorers=scorers, first_event=first_goal)
             else:
-                result = Result(home_goals=home_goals, away_goals=away_goals, scorers=None, first_event=first_card)
+                result = Result(home_goals=home_goals, away_goals=away_goals, home_team_id=home_team, away_team_id=away_team, scorers=None, first_event=first_card)
             # Change status from `collected_predictions` to `updated_result`
             logger.info("Updating result for fixture `{}` and changing status to `updated_result`".format(f.fixture_id))
             f.result = result

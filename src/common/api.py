@@ -24,4 +24,6 @@ def get_result(fixture_id):
     if fixture_info["statusShort"] == "FT":
         resp['score'] = fixture_info["score"]
         resp['events'] = fixture_info['events']
+        resp['home'] = fixture_info['homeTeam']['team_id']
+        resp['away'] = fixture_info['awayTeam']['team_id']
     return resp
