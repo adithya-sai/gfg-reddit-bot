@@ -1,20 +1,18 @@
-from pynamodb.models import Model
-from pynamodb.attributes import (UnicodeAttribute, NumberAttribute, MapAttribute, ListAttribute)
 from botocore.session import Session
+from pynamodb.attributes import (UnicodeAttribute, NumberAttribute, MapAttribute, ListAttribute)
+from pynamodb.models import Model
 
-from .league import League
 from .result import Result
-from .fixture import Fixture
+
 
 class Prediction(MapAttribute):
-
     fixture = NumberAttribute()
     result = Result()
     posted_at = NumberAttribute()
     points = NumberAttribute()
 
-class User(Model):
 
+class User(Model):
     class Meta:
         table_name = 'gfg-users'
         region = Session().get_config_variable('region')

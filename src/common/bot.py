@@ -1,7 +1,9 @@
 import logging
 
+from praw.models import MoreComments
+
 from common.config import config
-from common.reddit import reddit, MoreComments
+from common.reddit import reddit
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
