@@ -1,6 +1,7 @@
 import logging
 
 import google_sheets
+from common.config import config
 from common.models.fixture import Fixture
 from common.models.user import User
 
@@ -30,12 +31,9 @@ def score_users():
                 logger.info("Calculating score for user : `{}`".format(u.user_id))
                 points = 0
                 ur = u.curr_prediction.result
-                if is_correct_result(ur, f.result):
-                    points += 2
-                    logger.info("Correct result - points = {}".format(points))
-                if is_correct_scoreline(ur, f.result):
-                    points += 3
-                    logger.info("Correct scoreline - points = {}".format(points))
+
+                if ur.scorers:
+                    # Calculating scorer points
                     correct_scorers = list()
                     actual_scorers = list(f.result.scorers)
                     logger.info("Correct scorer = {}, pred_scorer = {}".format(actual_scorers, ur.scorers))
@@ -45,17 +43,29 @@ def score_users():
                             correct_scorers.append(s)
                             actual_scorers.remove(s)
 
-                    scoreline_dict[u.user_id] = 1
                     scorerpoints_dict[u.user_id] = len(correct_scorers)
 
                     points = points + len(correct_scorers)
                     logger.info("Adding scorer points, total = {}".format(points))
 
+                if is_correct_result(ur, f.result):
+                    points += 2
+                    logger.info("Correct result - points = {}".format(points))
+                if is_correct_scoreline(ur, f.result):
+                    points += 3
+                    logger.info("Correct scoreline - points = {}".format(points))
+                    scoreline_dict[u.user_id] = 1
+                else:
+                    # Checking if user predicted more than or equal to 5 goals
+                    if (f.home_team_id == int(config.get("TeamId")) and ur.home_goals >= 5) or (
+                            f.away_team_id == int(config.get("TeamId")) and ur.away_goals >= 5):
+                        points = points - (len(ur.scorers) - len(correct_scorers))
+
                 # update points
                 u = add_points(u, points, f.league)
                 user_list_to_save.append(u)
 
-            user_list_to_save = sorted(user_list_to_save, key=lambda u: u.curr_prediction.points, reverse=True)
+            user_list_to_save = sorted(user_list_to_save, key=lambda x: x.curr_prediction.points, reverse=True)
             for u in user_list_to_save:
                 print(u.user_id, u.curr_prediction.points)
             second_list_to_save = []
