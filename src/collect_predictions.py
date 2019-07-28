@@ -33,7 +33,9 @@ def extract_result(lines):
                     break
             for i in range(next_index, len(lines)):
                 if lines[i].strip().replace(" ",""):
-                    first_event = lines[i].strip().replace(" ","").replace("\'","")
+                    first_event_re = re.search("[0-9]{1,2}", lines[i])
+                    if first_event_re:
+                        first_event = first_event_re.group(0)
                     if first_event.isdigit():
                         first_event = int(first_event)
                     else:
