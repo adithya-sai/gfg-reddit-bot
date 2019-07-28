@@ -1,14 +1,9 @@
-import time
-import re
-import heapq
-from common.config import config
-from common.models.fixture import Fixture
-from common.models.result import Result
-from common.models.user import User, MapAttribute
-import common.api as api
 import logging
-import configparser
+
 import google_sheets
+from common.models.fixture import Fixture
+from common.models.user import User
+
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
@@ -16,12 +11,12 @@ logger.setLevel(logging.INFO)
 def score_users():
     # get fixture with status "updated_result"
     logger.info("Getting fixture with status `updated_result`")
-    fixture_list = list(Fixture.status_index.query("updated_result", limit = 1))
+    fixture_list = list(Fixture.status_index.query("updated_result", limit=1))
     if len(fixture_list) > 0:
         f = fixture_list[0]
         logger.info("Calculating users score for the fixture result `{}`".format(f.fixture_id))
         logger.info("Getting predictions for users with fixture_id `{}` in curr_prediction".format(f.fixture_id))
-        
+
         # get user records where current prediction fixture id is the same as the fixture that ended
         users_list = list(User.scan(User.curr_prediction.fixture == f.fixture_id))
         if len(users_list) > 0:
@@ -31,7 +26,7 @@ def score_users():
             scorerpoints_dict = {}
             highest_user = None
             for u in users_list:
-                u.curr_prediction.points = 0 # just to be sure
+                u.curr_prediction.points = 0  # just to be sure
                 logger.info("Calculating score for user : `{}`".format(u.user_id))
                 points = 0
                 ur = u.curr_prediction.result
@@ -59,8 +54,8 @@ def score_users():
                 # update points
                 u = add_points(u, points, f.league)
                 user_list_to_save.append(u)
-            
-            user_list_to_save = sorted(user_list_to_save, key=lambda u: u.curr_prediction.points, reverse = True)
+
+            user_list_to_save = sorted(user_list_to_save, key=lambda u: u.curr_prediction.points, reverse=True)
             for u in user_list_to_save:
                 print(u.user_id, u.curr_prediction.points)
             second_list_to_save = []
@@ -97,6 +92,7 @@ def score_users():
                 u.save()
             return f
 
+
 def is_correct_result(ur, fixture_result):
     actual_result_diff = fixture_result.home_goals - fixture_result.away_goals
     user_result_diff = ur.home_goals - ur.away_goals
@@ -109,29 +105,32 @@ def is_correct_result(ur, fixture_result):
     else:
         return False
 
+
 def is_correct_scoreline(ur, fixture_result):
     if ur.home_goals == fixture_result.home_goals and ur.away_goals == fixture_result.away_goals:
         return True
 
+
 def win_tie(current_user, highest_user, scoreline_dict, scorerpoints_dict, fixture):
     # check if correct scoreline
-    if scoreline_dict.get(current_user.user_id,0) >= scoreline_dict.get(highest_user.user_id,0):
-        if scoreline_dict.get(current_user.user_id,0) > scoreline_dict.get(highest_user.user_id,0):
+    if scoreline_dict.get(current_user.user_id, 0) >= scoreline_dict.get(highest_user.user_id, 0):
+        if scoreline_dict.get(current_user.user_id, 0) > scoreline_dict.get(highest_user.user_id, 0):
             return True
         else:
             # if both users have correct scoreline, check scorer points
-            if scorerpoints_dict.get(current_user.user_id,0) > scorerpoints_dict.get(highest_user.user_id,0):
+            if scorerpoints_dict.get(current_user.user_id, 0) > scorerpoints_dict.get(highest_user.user_id, 0):
                 return True
-            elif scorerpoints_dict.get(current_user.user_id,0) == scorerpoints_dict.get(highest_user.user_id,0):
+            elif scorerpoints_dict.get(current_user.user_id, 0) == scorerpoints_dict.get(highest_user.user_id, 0):
                 # if that is also same, check who got the closest first event
                 if abs(current_user.curr_prediction.result.first_event - fixture.result.first_event) < \
-                    abs(highest_user.curr_prediction.result.first_event - fixture.result.first_event):
+                        abs(highest_user.curr_prediction.result.first_event - fixture.result.first_event):
                     return True
                 elif abs(current_user.curr_prediction.result.first_event - fixture.result.first_event) == \
-                    abs(highest_user.curr_prediction.result.first_event - fixture.result.first_event):
+                        abs(highest_user.curr_prediction.result.first_event - fixture.result.first_event):
                     return current_user.curr_prediction.posted_at < highest_user.curr_prediction.posted_at
     else:
         return False
+
 
 def add_points(u, points, league_id):
     u.curr_prediction.points += points
@@ -153,6 +152,8 @@ def lambda_handler(event, context):
         # change status to FT
         f.save()
         google_sheets.update_sheets(f)
+
+
 if __name__ == "__main__":
     f = score_users()
     if f:

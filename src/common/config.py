@@ -1,6 +1,7 @@
-import configparser
 import os
 
+import configparser
+
 config = configparser.ConfigParser()
-config.read(os.path.join( os.path.dirname( __file__ ), 'config.ini'))
+config.read(os.path.join(os.path.dirname(__file__), 'config.ini'))
 config = config[os.environ["GFG_ENV"]]

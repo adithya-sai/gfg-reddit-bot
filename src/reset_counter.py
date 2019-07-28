@@ -1,11 +1,6 @@
-import common.api as api
-from common.models.fixture import Fixture
-from common.models.result import Result
-from common.models.league import League
-from common.models.stat import Stat
-from common.models.user import User
-from common.config import config
 import logging
+
+from common.models.stat import Stat
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -22,6 +17,7 @@ def reset_counter():
 
 def lambda_handler(event, context):
     reset_counter()
+
 
 if __name__ == "__main__":
     reset_counter()

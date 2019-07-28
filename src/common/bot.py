@@ -1,11 +1,7 @@
-from common.models.result import Result
-from common.models.user import User, Prediction
-from common.models.submission import Submission
-from common.reddit import reddit, MoreComments
-from common.config import config
-
-import re
 import logging
+
+from common.config import config
+from common.reddit import reddit, MoreComments
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -24,8 +20,9 @@ def crawl_predictions(submission_id):
         redditor = top_level_comment.author
         if redditor:
             if top_level_comment.author.name not in user_set:
-                user_predictions.append({'name':top_level_comment.author.name, 'body': top_level_comment.body, 'posted_at': top_level_comment.created_utc})
-                user_set.add(top_level_comment.author.name)    
+                user_predictions.append({'name': top_level_comment.author.name, 'body': top_level_comment.body,
+                                         'posted_at': top_level_comment.created_utc})
+                user_set.add(top_level_comment.author.name)
     return user_predictions
 
 
