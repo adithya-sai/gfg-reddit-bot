@@ -3,6 +3,7 @@ import logging
 import time
 
 import common.bot as bot
+from common.config import config
 from common.models.fixture import Fixture
 from common.models.league import League
 from common.models.submission import Submission
@@ -23,7 +24,7 @@ def make_reddit_post(f):
     data = {
         "home": f.home,
         "away": f.away,
-        "start_time": datetime.datetime.utcfromtimestamp(f.start_time)
+        "spreadsheet_link": "https://docs.google.com/spreadsheets/d/" + config.get("SpreadSheetId")
     }
 
     with open('thread_format.txt', 'r') as myfile:

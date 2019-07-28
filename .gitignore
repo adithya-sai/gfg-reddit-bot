@@ -8,3 +8,4 @@ virtualenv/
 *.sh
 
 .vscode
+.idea

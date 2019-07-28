@@ -1,7 +1,6 @@
 # Welcome to Season 5 of the Golden League
 
-Hello reddevils, time for your predictions.  
-# **{home}** vs **{away}**  
+# **{home}** vs **{away}**
 
 ##**Format for prediction:**  
 
@@ -13,34 +12,48 @@ Hello reddevils, time for your predictions.
   
   
 ### Example prediction:  
-    Manchester United 2 - 1 Tottenham Hotspur  
+    Manchester United 2 - 1 Tottenham Hotspur
+
     Lukaku, Rashford
+
     24
 
+## League standings: {spreadsheet_link}
 
 ##Scoring system
 
-Correct Result (Win, Draw, Loss): +2 points
++2 points for correct result (Win Draw Loss)
 
-Correct Scoreline: +3 points
++3 points for correct scoreline (exact)
 
-Each correct goal+scorer: +1 point
++1 point for correct goal+scorer (applies to everyone regardless of accuracy of result, explained fully below)
 
-Best prediction of game (winner of gold): +5 points
+-1 point for every incorrect goal+scorer when predicting us to score 5 or more
 
-If you lost out on gold due to tiebreaker, you get +3 points
++5 points for overall winner (minute of first goal only used as tiebreaker, not worth any points)
 
++3 points in event of losing to a tiebreak
 
-##Some rules and information
+***
 
+For the +1 for scorer, if you predicted 3 -1 win with Rashford, Greenwood, Pogba, and we win 4-0 with Rashford getting 2, Pogba 1 and Shaw 1, you get:
+
+2 points for correct result
+
+1 point for Rashford (you only predicted him to score once)
+
+1 point for Pogba
+
+2+1+1 = 4 points total
+
+## Rules and information
+
+* IMPORTANT: Use only the last name for scorers
+* If you want to predict one player scoring two goals, put the same name twice separated by commas.
 * Make a comment on this thread.
 * If predicting a 0-0 draw, enter the minute of the first booking as a tiebreaker  
 * If there are two identical predictions, the advantage goes to the earliest prediction.
 * Winner decided as follows: Correct scoreline -> Number of correct scorers -> minute of first goal of the game by either side (tiebreaker)
-
 * One prediction each
-
 * Comments entered in the wrong format cannot be read by the bot and thus cannot be accepted
-
 * Comments must be made before kickoff. You can edit them before this time. Comments entered or edited after k.o will not be accepted.
-* Use only the last name for scorers
