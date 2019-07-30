@@ -74,10 +74,11 @@ def collect_predictions():
                 logger.info(
                     "Gathered `{}` user predictions for fixture: {}".format(len(user_predictions), f.fixture_id))
                 new_user_list = list()
+                user_set = set()
                 for up in user_predictions:
                     lines = up['body'].split('\n')
                     result = extract_result(lines, f)
-                    if result:
+                    if result and up['name'] not in user_set:
                         prediction = Prediction(fixture=f.fixture_id, result=result, posted_at=up['posted_at'],
                                                 points=0)
                         existing_user_result = list(User.query(up['name']))
@@ -90,6 +91,7 @@ def collect_predictions():
                             new_user = User(user_id=up['name'], total_points=0, points_per_league=dict(),
                                             curr_prediction=prediction, prediction_history=list())
                             new_user_list.append(new_user)
+                        user_set.add(up['name'])
 
                 if len(new_user_list) > 0:
                     logger.info("Inserting new user predictions of size: {}".format(len(new_user_list)))

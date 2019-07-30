@@ -13,7 +13,7 @@ def crawl_predictions(submission_id):
     logger.info("Calling reddit API to get submission: {}".format(submission_id))
     submission = reddit.submission(id=submission_id)
     user_predictions = []
-    user_set = set()
+    submission.comment_sort = 'old'
     submission.comments.replace_more(limit=None)
     for top_level_comment in submission.comments:
         if isinstance(top_level_comment, MoreComments):
@@ -21,10 +21,8 @@ def crawl_predictions(submission_id):
             continue
         redditor = top_level_comment.author
         if redditor:
-            if top_level_comment.author.name not in user_set:
-                user_predictions.append({'name': top_level_comment.author.name, 'body': top_level_comment.body,
+            user_predictions.append({'name': top_level_comment.author.name, 'body': top_level_comment.body,
                                          'posted_at': top_level_comment.created_utc})
-                user_set.add(top_level_comment.author.name)
     return user_predictions
 
 
