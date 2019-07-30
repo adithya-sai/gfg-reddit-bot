@@ -56,9 +56,11 @@ def score_users():
                     logger.info("Correct scoreline - points = {}".format(points))
                     scoreline_dict[u.user_id] = 1
                 else:
-                    # Checking if user predicted more than or equal to 5 goals
-                    if (f.home_team_id == int(config.get("TeamId")) and ur.home_goals >= 5) or (
-                            f.away_team_id == int(config.get("TeamId")) and ur.away_goals >= 5):
+                    # Checking if user predicted more than or equal to 5 goals and result did not have 5 goals
+                    if (f.home_team_id == int(config.get("TeamId")) and ur.home_goals >= 5 and len(
+                            f.result.scorers) < 5) or (
+                            f.away_team_id == int(config.get("TeamId")) and ur.away_goals >= 5 and len(
+                            f.result.scorers) < 5):
                         points = points - (len(ur.scorers) - len(correct_scorers))
 
                 # update points
