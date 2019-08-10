@@ -14,7 +14,7 @@
 ### Example prediction:  
     Manchester United 2 - 1 Tottenham Hotspur
 
-    Lukaku, Rashford
+    Martial, Rashford
 
     24
 
@@ -28,7 +28,7 @@
 
 +1 point for correct goal+scorer (applies to everyone regardless of accuracy of result, explained fully below)
 
--1 point for every incorrect goal+scorer when predicting us to score 5 or more
+-1 point for every incorrect goal+scorer if predicting us to score 5 or more and if we actually don't score at least 5
 
 +5 points for overall winner (minute of first goal only used as tiebreaker, not worth any points)
 
@@ -57,3 +57,7 @@ For the +1 for scorer, if you predicted 3 -1 win with Rashford, Greenwood, Pogba
 * One prediction each
 * Comments entered in the wrong format cannot be read by the bot and thus cannot be accepted
 * Comments must be made before kickoff. You can edit them before this time. Comments entered or edited after k.o will not be accepted.
+
+
+# Prizes
+https://old.reddit.com/r/reddevils/comments/cmflh0/going_for_gold_season_5_starts_this_weekend_get/
