@@ -2,6 +2,7 @@ while getopts ":d:f:x" opt; do
   case $opt in
     d)
       DEST=$OPTARG
+      ;;
     f)
       FILES=$OPTARG
       ;;
