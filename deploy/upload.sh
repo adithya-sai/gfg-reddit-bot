@@ -21,11 +21,13 @@ while getopts ":d:f:x" opt; do
 done
 
 cd src
+echo "FILES : $FILES"
+echo "DEST: $DEST"
+echo "FUNCTION NAME : $FUNC"
 
 for FILE in $FILES;
 do
- zip -g $FILE $DEST
- echo "FILE_NAME: $FILE"
+ zip -r9 $DEST $FILE
 done
 
 aws lambda update-function-code --function-name $FUNC --zip-file fileb://$DEST
