@@ -1,4 +1,4 @@
-while getopts ":d:f:x" opt; do
+while getopts "d:f:x:" opt; do
   case $opt in
     d)
       DEST=$OPTARG
@@ -31,7 +31,7 @@ do
 done
 
 aws lambda update-function-code --function-name $FUNC --zip-file fileb://$DEST
-aws lambda update-function-configuration --function-name refresh-fixtures-func --environment Variables="{GFG_ENV=prod, FOOTBALL_API_KEY=${FOOTBALL_API_KEY}}"
+aws lambda update-function-configuration --function-name $FUNC --environment Variables="{GFG_ENV=prod, FOOTBALL_API_KEY=${FOOTBALL_API_KEY}}"
 
 rm $DEST
 exit 0
