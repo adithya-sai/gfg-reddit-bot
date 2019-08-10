@@ -3,8 +3,9 @@ branches:
   only:
   - master
 before_install:
+- openssl aes-256-cbc -K $encrypted_e626a646b3fb_key -iv $encrypted_e626a646b3fb_iv
+  -in credentials.tar.enc -out credentials.tar -d
 - pip install awscli
-- openssl aes-256-cbc -K $encrypted_e626a646b3fb_key -iv $encrypted_e626a646b3fb_iv -in ${TRAVIS_BUILD_DIR}/src/credentials.tar.enc -out ${TRAVIS_BUILD_DIR}/src/credentials.tar -d
 - tar xvf ${TRAVIS_BUILD_DIR}/src/credentials.tar
 install:
 - pip install --target ./package -r requirements.txt
