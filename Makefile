@@ -1,8 +1,7 @@
 all: pipzip functions
 
 pipzip:
-	cd package
-	zip -r9 -q ${TRAVIS_BUILD_DIR}/function.zip .
+	cd package && zip -r9 -q ${TRAVIS_BUILD_DIR}/function.zip .
 
 functions: refresh_fixtures post_thread calculate_score collect_predictions get_result reset_counter
 	
