@@ -6,7 +6,7 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_42ddba2a9b3d_key -iv $encrypted_42ddba2a9b3d_iv
   -in env.tar.enc -out src/env.tar -d
 - pip install awscli
-- cd src && tar xvf env.tar
+- cd src && tar xvf env.tar && cd ..
 install:
 - pip install --target ./package -r requirements.txt
 script: make
