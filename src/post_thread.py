@@ -26,6 +26,13 @@ def make_reddit_post(f):
         "away": f.away,
         "spreadsheet_link": "https://docs.google.com/spreadsheets/d/" + config.get("SpreadSheetId")
     }
+    if f.home_team_id == int(config.get("TeamId")):
+        data["s1"] = 2
+        data["s2"] = 1
+    else:
+        data["s2"] = 2
+        data["s1"] = 1
+
 
     with open('thread_format.txt', 'r') as myfile:
         body = myfile.read().format(**data)

@@ -12,13 +12,15 @@
   
   
 ### Example prediction:  
-    Manchester United 2 - 1 Tottenham Hotspur
+    {home} {s1} - {s2} {away}
 
     Martial, Rashford
 
     24
 
 ## League standings: {spreadsheet_link}
+
+If you have any questions regarding this game, reach out to /u/Pedantic_Pat
 
 ##Scoring system
 
@@ -57,7 +59,30 @@ For the +1 for scorer, if you predicted 3 -1 win with Rashford, Greenwood, Pogba
 * One prediction each
 * Comments entered in the wrong format cannot be read by the bot and thus cannot be accepted
 * Comments must be made before kickoff. You can edit them before this time. Comments entered or edited after k.o will not be accepted.
+* Use only the last name for scorers
 
 
 # Prizes
-https://old.reddit.com/r/reddevils/comments/cmflh0/going_for_gold_season_5_starts_this_weekend_get/
+
+Here are the prizes, please feel free to volunteer another if you want to!
+
+Position | Prize | User
+---|---|----
+1st | Manchester United 2020/21 Jersey of your choice + mystery prize | /u/Pedantic_Pat
+2nd | Fifa 21 | /u/Bunch_of_Bangers
+3rd | $50 Steam Gift Card | /u/LalleUtd
+4th | $30 item from Megastore | /u/ante_cibum
+5th| $25 Amazon Gift Card | /u/ouguy2017 
+6th| £10 Voucher of your choice | /u/Ollibreh
+7th| $10 Amazon Gift Card | /u/gyanr
+8th | $10 gift card to PS Store/Xbox Store/Nintendo eShop. | /u/zSolaris
+9th | $10 gift card to PS Store/Xbox Store/Nintendo eShop. | /u/zSolaris 
+10th | $10 Steam gift card. | /u/3V-Coryn
+11th | $50 to charity of your choice | /u/FrolickinWithAbandon
+12th | 20 bucks to charity of your choice | /u/bunsen_____honeydew
+13th| Man Utd Scarf & Mug | /u/Destro89
+14th| SAF Autobiography | /u/jimipops
+15th| $5 Amazon Gift Card | /u/w1zgov 
+16th | $5 Amazon Gift Card | /u/w1zgov
+
+Bot developed by : /u/gfg-dev  |  [Source code](https://github.com/adithya-sai/gfg-reddit-bot)  
