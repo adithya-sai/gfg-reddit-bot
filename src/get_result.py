@@ -50,7 +50,7 @@ def check_for_fixture_result():
             first_goal = 0
             first_card = 0
             for e in result_dict['events']:
-                if e['type'].lower() == "goal":
+                if e['type'].lower() == "goal" and "missed" not in e['detail'].lower():
                     if first_goal == 0:
                         first_goal = e['elapsed']
                     if e['team_id'] == int(mu_id):
