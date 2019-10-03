@@ -21,7 +21,7 @@ logger.setLevel(logging.INFO)
 
 def extract_result(lines, fixture):
     scorers = None
-    first_event = None
+    first_event = 10000 # initialize - assigning an insane number
     score_line_re = re.search("([0-9] *- *[0-9])", lines[0])
     if score_line_re is not None:
         score = score_line_re.group(0).strip().replace(" ", "").split("-")
@@ -45,11 +45,8 @@ def extract_result(lines, fixture):
                 if lines[i].strip().replace(" ", ""):
                     first_event_re = re.search("[0-9]{1,2}", lines[i])
                     if first_event_re:
-                        first_event = first_event_re.group(0)
-                        if first_event.isdigit():
+                        if first_event_re.group(0).isdigit():
                             first_event = int(first_event)
-                        else:
-                            first_event = 10000  # assigning an insane number if first event is not an integer
                         break
             return Result(home_goals=home_goals, away_goals=away_goals, home_team_id=fixture.home_team_id,
                           away_team_id=fixture.away_team_id, scorers=scorers, first_event=first_event)
