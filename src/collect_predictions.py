@@ -46,7 +46,7 @@ def extract_result(lines, fixture):
                     first_event_re = re.search("[0-9]{1,2}", lines[i])
                     if first_event_re:
                         if first_event_re.group(0).isdigit():
-                            first_event = int(first_event)
+                            first_event = int(first_event_re.group(0))
                         break
             return Result(home_goals=home_goals, away_goals=away_goals, home_team_id=fixture.home_team_id,
                           away_team_id=fixture.away_team_id, scorers=scorers, first_event=first_event)
