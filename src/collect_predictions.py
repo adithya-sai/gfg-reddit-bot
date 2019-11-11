@@ -14,7 +14,7 @@ from common.models.result import Result
 from common.models.submission import Submission
 from common.models.user import User, Prediction
 
-# logger = logging.getLogger()
+logger = logging.getLogger()
 # logger.addHandler(logging.StreamHandler())
 # logger.setLevel(logging.INFO)
 
