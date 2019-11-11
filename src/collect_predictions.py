@@ -14,9 +14,9 @@ from common.models.result import Result
 from common.models.submission import Submission
 from common.models.user import User, Prediction
 
-logger = logging.getLogger()
-logger.addHandler(logging.StreamHandler())
-logger.setLevel(logging.INFO)
+# logger = logging.getLogger()
+# logger.addHandler(logging.StreamHandler())
+# logger.setLevel(logging.INFO)
 
 
 def extract_result(lines, fixture):
@@ -35,10 +35,12 @@ def extract_result(lines, fixture):
                     curr_line = lines[i].strip().replace(" ", "")
                     if curr_line and "&#" not in curr_line:
                         scorers = [x.lower() for x in curr_line.split(",")]
+                        logger.info("Scorers: {}".format(scorers))
                         if fixture.home_team_id == int(config.get("TeamId")):
                             scorers = scorers[0:home_goals]
                         else:
                             scorers = scorers[0:away_goals]
+                        scorers = list(filter(None, scorers))
                         next_index = i + 1
                         break
             for i in range(next_index, len(lines)):
@@ -47,6 +49,7 @@ def extract_result(lines, fixture):
                     if first_event_re:
                         if first_event_re.group(0).isdigit():
                             first_event = int(first_event_re.group(0))
+                            logger.info("First event = {}".format(first_event))
                         break
             return Result(home_goals=home_goals, away_goals=away_goals, home_team_id=fixture.home_team_id,
                           away_team_id=fixture.away_team_id, scorers=scorers, first_event=first_event)
@@ -74,17 +77,20 @@ def collect_predictions():
                 user_set = set()
                 for up in user_predictions:
                     lines = up['body'].split('\n')
+                    logger.info("Current user : {}. Lines : {}".format(up["name"],lines))
                     result = extract_result(lines, f)
                     if result and up['name'] not in user_set:
                         prediction = Prediction(fixture=f.fixture_id, result=result, posted_at=up['posted_at'],
                                                 points=0)
                         existing_user_result = list(User.query(up['name']))
                         if len(existing_user_result) > 0:
+                            logger.info("User : {} is an existing user".format(up["name"]))
                             existing_user = existing_user_result[0]
                             existing_user.prediction_history.append(existing_user.curr_prediction)
                             existing_user.curr_prediction = prediction
                             existing_user.save()
                         else:
+                            logger.info("User : {} is a new user".format(up["name"]))
                             new_user = User(user_id=up['name'], total_points=0, points_per_league=dict(),
                                             curr_prediction=prediction, prediction_history=list())
                             new_user_list.append(new_user)
