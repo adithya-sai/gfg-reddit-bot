@@ -20,4 +20,3 @@ class User(Model):
     total_points = NumberAttribute(default_for_new=0)
     points_per_league = MapAttribute()
     curr_prediction = Prediction()
-    prediction_history = ListAttribute()

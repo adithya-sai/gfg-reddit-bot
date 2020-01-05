@@ -86,13 +86,12 @@ def collect_predictions():
                         if len(existing_user_result) > 0:
                             logger.info("User : {} is an existing user".format(up["name"]))
                             existing_user = existing_user_result[0]
-                            existing_user.prediction_history.append(existing_user.curr_prediction)
                             existing_user.curr_prediction = prediction
                             existing_user.save()
                         else:
                             logger.info("User : {} is a new user".format(up["name"]))
                             new_user = User(user_id=up['name'], total_points=0, points_per_league=dict(),
-                                            curr_prediction=prediction, prediction_history=list())
+                                            curr_prediction=prediction)
                             new_user_list.append(new_user)
                         user_set.add(up['name'])
 
