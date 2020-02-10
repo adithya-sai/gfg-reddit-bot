@@ -32,10 +32,11 @@ def score_users():
                 points = 0
                 ur = u.curr_prediction.result
 
+                correct_scorers = list()
+                actual_scorers = list()
+
                 if ur.scorers:
                     # Calculating scorer points
-                    correct_scorers = list()
-                    actual_scorers = list()
                     if f.result.scorers:
                         actual_scorers = list(f.result.scorers)
                     logger.info("Correct scorer = {}, pred_scorer = {}".format(actual_scorers, ur.scorers))
@@ -59,10 +60,8 @@ def score_users():
                     scoreline_dict[u.user_id] = 1
                 else:
                     # Checking if user predicted more than or equal to 5 goals and result did not have 5 goals
-                    if (f.home_team_id == int(config.get("TeamId")) and ur.home_goals >= 5 and len(
-                            f.result.scorers) < 5) or (
-                            f.away_team_id == int(config.get("TeamId")) and ur.away_goals >= 5 and len(
-                            f.result.scorers) < 5):
+                    if (f.home_team_id == int(config.get("TeamId")) and ur.home_goals >= 5 and len(actual_scorers) < 5) or (
+                            f.away_team_id == int(config.get("TeamId")) and ur.away_goals >= 5 and len(actual_scorers) < 5):
                         points = points - (len(ur.scorers) - len(correct_scorers))
 
                 # update points
