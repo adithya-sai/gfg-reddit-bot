@@ -35,7 +35,9 @@ def score_users():
                 if ur.scorers:
                     # Calculating scorer points
                     correct_scorers = list()
-                    actual_scorers = list(f.result.scorers)
+                    actual_scorers = list()
+                    if f.result.scorers:
+                        actual_scorers = list(f.result.scorers)
                     logger.info("Correct scorer = {}, pred_scorer = {}".format(actual_scorers, ur.scorers))
 
                     for s in ur.scorers:
