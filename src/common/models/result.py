@@ -6,5 +6,5 @@ class Result(MapAttribute):
     away_goals = NumberAttribute()
     home_team_id = NumberAttribute()
     away_team_id = NumberAttribute()
-    scorers = ListAttribute()
+    scorers = ListAttribute(null=True)
     first_event = NumberAttribute()
