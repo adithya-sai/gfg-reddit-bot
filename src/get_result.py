@@ -56,7 +56,7 @@ def check_for_fixture_result():
                     if e['team_id'] == int(mu_id):
                         scorers.append(e['player'].split(" ")[-1].lower())
 
-                elif e['type'].lower() == "card" and e['team_id'] == mu_id:
+                elif e['type'].lower() == "card" and e['team_id'] == int(mu_id):
                     if first_card == 0:
                         first_card = e['elapsed']
 
