@@ -77,12 +77,11 @@ Position | Prize | User
 7th| $10 Amazon Gift Card | /u/gyanr
 8th | $10 gift card to PS Store/Xbox Store/Nintendo eShop. | /u/zSolaris
 9th | $10 gift card to PS Store/Xbox Store/Nintendo eShop. | /u/zSolaris 
-10th | $10 Steam gift card. | /u/3V-Coryn
-11th | $50 to charity of your choice | /u/FrolickinWithAbandon
-12th | 20 bucks to charity of your choice | /u/bunsen_____honeydew
-13th| Man Utd Scarf & Mug | /u/Destro89
-14th| SAF Autobiography | /u/jimipops
-15th| $5 Amazon Gift Card | /u/w1zgov 
-16th | $5 Amazon Gift Card | /u/w1zgov
+10th | $50 to charity of your choice | /u/FrolickinWithAbandon
+11th | 20 bucks to charity of your choice | /u/bunsen_____honeydew
+12th| Man Utd Scarf & Mug | /u/Destro89
+13th| SAF Autobiography | /u/jimipops
+14th| $5 Amazon Gift Card | /u/w1zgov 
+15th | $5 Amazon Gift Card | /u/w1zgov
 
 Bot developed by : /u/gfg-dev  |  [Source code](https://github.com/adithya-sai/gfg-reddit-bot)  
