@@ -1,4 +1,4 @@
-# Welcome to Season 5 of the Golden League
+# Welcome to Season 6 of the Golden League
 
 # **{home}** vs **{away}**
 
@@ -64,24 +64,8 @@ For the +1 for scorer, if you predicted 3 -1 win with Rashford, Greenwood, Pogba
 
 # Prizes
 
-Here are the prizes, please feel free to volunteer another if you want to!
+There will be no prizes for this season. If things change, there will be a separate post regarding it.
 
-Position | Prize | User
----|---|----
-1st | Manchester United 2020/21 Jersey of your choice + mystery prize | /u/Pedantic_Pat
-2nd | Fifa 21 | /u/Bunch_of_Bangers
-3rd | $50 Steam Gift Card | /u/LalleUtd
-4th | $30 item from Megastore | /u/ante_cibum
-5th| $25 Amazon Gift Card | /u/ouguy2017 
-6th| £10 Voucher of your choice | /u/Ollibreh
-7th| $10 Amazon Gift Card | /u/gyanr
-8th | $10 gift card to PS Store/Xbox Store/Nintendo eShop. | /u/zSolaris
-9th | $10 gift card to PS Store/Xbox Store/Nintendo eShop. | /u/zSolaris 
-10th | $50 to charity of your choice | /u/FrolickinWithAbandon
-11th | 20 bucks to charity of your choice | /u/bunsen_____honeydew
-12th| Man Utd Scarf & Mug | /u/Destro89
-13th| SAF Autobiography | /u/jimipops
-14th| $5 Amazon Gift Card | /u/w1zgov 
-15th | $5 Amazon Gift Card | /u/w1zgov
+Please feel free to volunteer if you want to!
 
 Bot developed by : /u/gfg-dev  |  [Source code](https://github.com/adithya-sai/gfg-reddit-bot)  
